@@ -1,0 +1,235 @@
+# ============================================
+# PayOps360 Application Configuration
+# AI-Powered Payment Operations Platform
+# ============================================
+
+spring:
+  application:
+    name: payops360
+
+  main:
+    allow-bean-definition-overriding: true
+
+  profiles:
+    active: dev
+
+  # ============================================
+  # DATABASE CONFIGURATION
+  # ============================================
+  datasource:
+    url: jdbc:postgresql://localhost:5432/payops360
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+      pool-name: PayOps360-HikariCP
+
+  # ============================================
+  # JPA / HIBERNATE CONFIGURATION
+  # ============================================
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        use_sql_comments: false
+        jdbc:
+          batch_size: 20
+        order_inserts: true
+        order_updates: true
+    open-in-view: false
+
+  # ============================================
+  # FLYWAY CONFIGURATION
+  # ============================================
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    locations: classpath:db/migration
+
+  # ============================================
+  # JACKSON CONFIGURATION
+  # ============================================
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+      indent-output: true
+    deserialization:
+      fail-on-unknown-properties: false
+    default-property-inclusion: non_null
+    time-zone: UTC
+
+  # ============================================
+  # SECURITY CONFIGURATION
+  # ============================================
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080
+
+# ============================================
+# SERVER CONFIGURATION
+# ============================================
+server:
+  port: 8080
+  servlet:
+    context-path: /
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain
+  error:
+    include-message: always
+    include-binding-errors: always
+    include-stacktrace: never
+    include-exception: false
+
+# ============================================
+# ACTUATOR CONFIGURATION
+# ============================================
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+      base-path: /actuator
+  endpoint:
+    health:
+      show-details: when-authorized
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+    tags:
+      application: ${spring.application.name}
+
+# ============================================
+# SPRINGDOC / SWAGGER CONFIGURATION
+# ============================================
+springdoc:
+  api-docs:
+    path: /api-docs
+    enabled: true
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+    operations-sorter: method
+    tags-sorter: alpha
+    doc-expansion: none
+    disable-swagger-default-url: true
+    display-request-duration: true
+
+# ============================================
+# LOGGING CONFIGURATION
+# ============================================
+logging:
+  level:
+    root: INFO
+    com.payops: DEBUG
+    org.springframework.web: INFO
+    org.springframework.security: INFO
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+# ============================================
+# APPLICATION CUSTOM PROPERTIES
+# ============================================
+payops:
+  # Security
+  security:
+    jwt:
+      secret: ${JWT_SECRET:payops360-super-secret-key-change-in-production-min-256-bits}
+      expiration: 86400000 # 24 hours in milliseconds
+      refresh-expiration: 604800000 # 7 days in milliseconds
+
+  # Performance
+  performance:
+    max-page-size: 100
+    default-page-size: 20
+    query-timeout-seconds: 30
+
+  # Provider Health Monitoring
+  provider-health:
+    snapshot-interval-seconds: 60
+    alert-threshold-success-rate: 95.0
+    alert-threshold-latency-ms: 3000
+
+  # Alerts
+  alerts:
+    deduplication-window-minutes: 5
+    auto-resolve-after-minutes: 60
+
+  # Incident Correlation
+  incident:
+    correlation-window-seconds: 300
+    min-alerts-for-incident: 3
+
+  # Retry Configuration
+  retry:
+    max-attempts: 3
+    initial-delay-seconds: 5
+    max-delay-seconds: 300
+
+  # AI Configuration (Phase 5)
+  ai:
+    enabled: false
+    provider: openai # openai, claude
+    api-key: ${AI_API_KEY:}
+    model: gpt-4
+    max-tokens: 2000
+    temperature: 0.7
+
+# ============================================
+# PHASE 6: EVENT-DRIVEN & CACHING
+# ============================================
+events:
+  publisher:
+    type: local # local, kafka
+    async: true
+
+cache:
+  provider: local # local (caffeine), redis
+  default-ttl-hours: 1
+
+# Kafka Configuration (Phase 6)
+# Uncomment when Kafka is available
+#spring:
+#  kafka:
+#    bootstrap-servers: localhost:9092
+#    producer:
+#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      acks: all
+#      retries: 3
+#    consumer:
+#      group-id: payops360-consumer-group
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      auto-offset-reset: earliest
+
+# Redis Configuration (Phase 6)
+# Uncomment when Redis is available
+#spring:
+#  data:
+#    redis:
+#      host: localhost
+#      port: 6379
+#      password: ${REDIS_PASSWORD:}
+#      timeout: 2000ms
+#      lettuce:
+#        pool:
+#          max-active: 20
+#          max-idle: 10
+#          min-idle: 5
+
