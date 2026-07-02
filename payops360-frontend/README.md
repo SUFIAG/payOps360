@@ -36,10 +36,9 @@ payops360-frontend/
 │   ├── auth/                  # Authentication components
 │   ├── notifications/         # Notification components
 │   └── ui/                    # Reusable UI components
-├── hooks/                      # Custom React hooks
-│   └── useWebSocket.ts        # WebSocket hook
 ├── lib/                        # Utilities and libraries
 │   ├── api/                   # API client and endpoints
+│   ├── hooks/                 # Custom React hooks
 │   ├── store/                 # State management (Zustand)
 │   ├── websocket/             # WebSocket client
 │   └── utils.ts               # Utility functions
@@ -189,18 +188,18 @@ const result = await authApi.login(email, password)
 Use the `useWebSocket` hook for real-time updates:
 
 ```typescript
-import { useWebSocket } from '@/hooks/useWebSocket'
+import { useWebSocket } from '@/lib/hooks/useWebSocket'
 
 function Component() {
-  const { subscribe, unsubscribe, isConnected } = useWebSocket()
+  const { isConnected, sendMessage } = useWebSocket({
+    url: 'ws://localhost:8080/ws',
+    onMessage: (message) => {
+      console.log('Received:', message)
+    }
+  })
   
-  useEffect(() => {
-    const unsubscribe = subscribe('/topic/payments', (message) => {
-      console.log('Payment update:', message)
-    })
-    
-    return () => unsubscribe()
-  }, [])
+  return <div>Connected: {isConnected ? 'Yes' : 'No'}</div>
+}
 }
 ```
 

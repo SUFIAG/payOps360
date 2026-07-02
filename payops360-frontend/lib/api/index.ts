@@ -94,18 +94,23 @@ export const incidentApi = {
     return response.data;
   },
 
-  getIncident: async (id: number): Promise<Incident> => {
+  getIncident: async (id: string): Promise<Incident> => {
     const response = await apiClient.get<Incident>(`/incidents/${id}`);
     return response.data;
   },
 
-  acknowledgeIncident: async (id: number): Promise<Incident> => {
+  acknowledgeIncident: async (id: string): Promise<Incident> => {
     const response = await apiClient.patch<Incident>(`/incidents/${id}/acknowledge`);
     return response.data;
   },
 
-  resolveIncident: async (id: number, resolution: string): Promise<Incident> => {
-    const response = await apiClient.patch<Incident>(`/incidents/${id}/resolve`, { resolution });
+  resolveIncident: async (id: string, data: { resolutionNotes: string }): Promise<Incident> => {
+    const response = await apiClient.patch<Incident>(`/incidents/${id}/resolve`, data);
+    return response.data;
+  },
+
+  escalateIncident: async (id: string, data: { escalationReason: string }): Promise<Incident> => {
+    const response = await apiClient.patch<Incident>(`/incidents/${id}/escalate`, data);
     return response.data;
   },
 };

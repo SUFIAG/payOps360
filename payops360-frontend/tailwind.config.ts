@@ -1,7 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-  darkMode: ["class"],
+  darkMode: "class",
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -10,50 +10,65 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // PayOps360 Brand Colors - Deep Purple + Lavender + Vibrant Yellow
+        // PayOps360 Brand Colors - Aesthetic Yellow + Deep Purple + Grey
+        // 60-30-10 Rule Implementation
         brand: {
+          // Deep Purple (Primary - 10% accent in UI)
           purple: {
-            DEFAULT: "#6B46C1",
-            50: "#F5F3FF",
-            100: "#EDE9FE",
-            200: "#DDD6FE",
-            300: "#C4B5FD",
-            400: "#A78BFA",
-            500: "#8B5CF6",
-            600: "#6B46C1", // Primary
-            700: "#5B21B6",
-            800: "#4C1D95",
-            900: "#3B1D70",
-            950: "#2E1065",
-          },
-          lavender: {
-            DEFAULT: "#E9D5FF",
+            DEFAULT: "#7C3AED",
             50: "#FAF5FF",
             100: "#F3E8FF",
-            200: "#E9D5FF", // Secondary
+            200: "#E9D5FF",
             300: "#D8B4FE",
             400: "#C084FC",
             500: "#A855F7",
             600: "#9333EA",
-            700: "#7E22CE",
+            700: "#7C3AED", // Primary
             800: "#6B21A8",
             900: "#581C87",
+            950: "#3B0764",
           },
+          // Purple Grey (Secondary - 30% cards/containers)
+          grey: {
+            DEFAULT: "#64748B",
+            50: "#F8FAFC",
+            100: "#F1F5F9",
+            200: "#E2E8F0",
+            300: "#CBD5E1",
+            400: "#94A3B8",
+            500: "#64748B",
+            600: "#475569",
+            700: "#334155",
+            800: "#1E293B",
+            900: "#0F172A",
+            950: "#020617",
+          },
+          // Aesthetic Yellow (Accent - 10% highlights)
           yellow: {
-            DEFAULT: "#FCD34D",
+            DEFAULT: "#F59E0B",
             50: "#FFFBEB",
             100: "#FEF3C7",
             200: "#FDE68A",
-            300: "#FCD34D", // Accent
+            300: "#FCD34D",
             400: "#FBBF24",
-            500: "#F59E0B",
+            500: "#F59E0B", // Accent
             600: "#D97706",
             700: "#B45309",
             800: "#92400E",
             900: "#78350F",
+            950: "#451A03",
           },
         },
-        // Semantic colors
+        // Semantic colors (use sparingly)
+        success: {
+          DEFAULT: "hsl(var(--success))",
+          foreground: "hsl(var(--success-foreground))",
+        },
+        warning: {
+          DEFAULT: "hsl(var(--warning))",
+          foreground: "hsl(var(--warning-foreground))",
+        },
+        // Core design tokens
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {
@@ -129,8 +144,9 @@ const config: Config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
 };
 
 export default config;
+
+
 

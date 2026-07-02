@@ -40,36 +40,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-brand-purple-950 via-brand-purple-900 to-brand-purple-800 p-4">
-      {/* Animated background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <motion.div
-          className="absolute top-1/4 left-1/4 w-96 h-96 bg-brand-lavender-500/10 rounded-full blur-3xl"
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.5, 0.3],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-        <motion.div
-          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-brand-yellow-500/10 rounded-full blur-3xl"
-          animate={{
-            scale: [1.2, 1, 1.2],
-            opacity: [0.3, 0.5, 0.3],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 1,
-          }}
-        />
-      </div>
-
+    <div className="min-h-screen bg-[#0f0a1a] flex items-center justify-center p-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -77,27 +48,22 @@ export default function LoginPage() {
         className="w-full max-w-md relative z-10"
       >
         <div className="text-center mb-8">
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-            className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-brand-purple-600 to-brand-lavender-400 mb-4"
-          >
-            <span className="text-2xl font-bold text-white">P360</span>
-          </motion.div>
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-lg bg-gradient-to-br from-yellow-400 to-yellow-500 mb-4 shadow-lg">
+            <span className="text-2xl font-bold text-purple-900">P360</span>
+          </div>
           <h1 className="text-3xl font-bold text-white mb-2">PayOps360</h1>
-          <p className="text-brand-lavender-200">AI-Powered Payment Operations</p>
+          <p className="text-gray-400">AI-Powered Payment Operations</p>
         </div>
 
-        <Card className="border-brand-purple-700/50 bg-white/95 backdrop-blur-sm shadow-2xl">
+        <div className="bg-[#1a1229] rounded-2xl p-8 border border-gray-800 shadow-2xl">
           <CardHeader>
-            <CardTitle className="text-2xl text-brand-purple-900">Welcome Back</CardTitle>
-            <CardDescription>Sign in to your account to continue</CardDescription>
+            <CardTitle className="text-2xl text-white">Welcome Back</CardTitle>
+            <CardDescription className="text-gray-400">Sign in to your account to continue</CardDescription>
           </CardHeader>
           <form onSubmit={handleSubmit}>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <label htmlFor="email" className="text-sm font-medium text-gray-700">
+                <label htmlFor="email" className="text-sm font-medium text-gray-300">
                   Email Address
                 </label>
                 <Input
@@ -108,11 +74,11 @@ export default function LoginPage() {
                   onChange={(e) => setEmail(e.target.value)}
                   disabled={isLoading}
                   required
-                  className="h-11"
+                  className="h-11 bg-[#0f0a1a] border-gray-700 text-white placeholder-gray-500 focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                 />
               </div>
               <div className="space-y-2">
-                <label htmlFor="password" className="text-sm font-medium text-gray-700">
+                <label htmlFor="password" className="text-sm font-medium text-gray-300">
                   Password
                 </label>
                 <div className="relative">
@@ -124,12 +90,12 @@ export default function LoginPage() {
                     onChange={(e) => setPassword(e.target.value)}
                     disabled={isLoading}
                     required
-                    className="h-11 pr-10"
+                    className="h-11 pr-10 bg-[#0f0a1a] border-gray-700 text-white placeholder-gray-500 focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-300"
                   >
                     {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                   </button>
@@ -137,12 +103,12 @@ export default function LoginPage() {
               </div>
               <div className="flex items-center justify-between text-sm">
                 <label className="flex items-center gap-2 cursor-pointer">
-                  <input type="checkbox" className="rounded border-gray-300" />
-                  <span className="text-gray-600">Remember me</span>
+                  <input type="checkbox" className="rounded border-gray-700" />
+                  <span className="text-gray-400">Remember me</span>
                 </label>
                 <Link
                   href="/forgot-password"
-                  className="text-brand-purple-600 hover:text-brand-purple-700 font-medium"
+                  className="text-yellow-400 hover:text-yellow-300 font-medium"
                 >
                   Forgot password?
                 </Link>
@@ -151,7 +117,7 @@ export default function LoginPage() {
             <CardFooter className="flex-col space-y-4">
               <Button
                 type="submit"
-                className="w-full h-11 text-base"
+                className="w-full h-11 text-base bg-purple-600 hover:bg-purple-700 text-white"
                 disabled={isLoading}
               >
                 {isLoading ? (
@@ -166,20 +132,20 @@ export default function LoginPage() {
                   </>
                 )}
               </Button>
-              <p className="text-center text-sm text-gray-600">
-                Don't have an account?{" "}
+              <p className="text-center text-sm text-gray-400">
+                Don&apos;t have an account?{" "}
                 <Link
                   href="/register"
-                  className="text-brand-purple-600 hover:text-brand-purple-700 font-medium"
+                  className="text-yellow-400 hover:text-yellow-300 font-medium"
                 >
                   Create one
                 </Link>
               </p>
             </CardFooter>
           </form>
-        </Card>
+        </div>
 
-        <p className="text-center text-xs text-brand-lavender-300 mt-6">
+        <p className="text-center text-xs text-gray-500 mt-6">
           © 2026 PayOps360. Enterprise Payment Operations Platform.
         </p>
       </motion.div>

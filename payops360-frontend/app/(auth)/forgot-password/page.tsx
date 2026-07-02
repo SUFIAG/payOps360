@@ -32,16 +32,7 @@ export default function ForgotPasswordPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-brand-purple-950 via-brand-purple-900 to-brand-purple-800 p-4">
-      {/* Animated background */}
-      <div className="absolute inset-0 overflow-hidden">
-        <motion.div
-          className="absolute top-1/4 left-1/4 w-96 h-96 bg-brand-lavender-500/10 rounded-full blur-3xl"
-          animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        />
-      </div>
-
+    <div className="min-h-screen bg-[#0f0a1a] flex items-center justify-center p-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -49,29 +40,24 @@ export default function ForgotPasswordPage() {
         className="w-full max-w-md relative z-10"
       >
         <div className="text-center mb-8">
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-            className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-brand-purple-600 to-brand-lavender-400 mb-4"
-          >
-            <span className="text-2xl font-bold text-white">P360</span>
-          </motion.div>
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-lg bg-gradient-to-br from-yellow-400 to-yellow-500 mb-4 shadow-lg">
+            <span className="text-2xl font-bold text-purple-900">P360</span>
+          </div>
           <h1 className="text-3xl font-bold text-white mb-2">Reset Password</h1>
-          <p className="text-brand-lavender-200">We'll send you a reset link</p>
+          <p className="text-gray-400">We&apos;ll send you a reset link</p>
         </div>
 
-        <Card className="border-brand-purple-700/50 bg-white/95 backdrop-blur-sm shadow-2xl">
+        <div className="bg-[#1a1229] rounded-2xl p-8 border border-gray-800 shadow-2xl">
           {!isSubmitted ? (
             <>
               <CardHeader>
-                <CardTitle className="text-2xl text-brand-purple-900">Forgot Password?</CardTitle>
-                <CardDescription>Enter your email to receive a password reset link</CardDescription>
+                <CardTitle className="text-2xl text-white">Forgot Password?</CardTitle>
+                <CardDescription className="text-gray-400">Enter your email to receive a password reset link</CardDescription>
               </CardHeader>
               <form onSubmit={handleSubmit}>
                 <CardContent className="space-y-4">
                   <div className="space-y-2">
-                    <label htmlFor="email" className="text-sm font-medium text-gray-700 flex items-center gap-2">
+                    <label htmlFor="email" className="text-sm font-medium text-gray-300 flex items-center gap-2">
                       <Mail size={16} /> Email Address
                     </label>
                     <Input
@@ -82,12 +68,12 @@ export default function ForgotPasswordPage() {
                       onChange={(e) => setEmail(e.target.value)}
                       disabled={isLoading}
                       required
-                      className="h-11"
+                      className="h-11 bg-[#0f0a1a] border-gray-700 text-white placeholder-gray-500 focus:ring-2 focus:ring-purple-600"
                     />
                   </div>
                 </CardContent>
                 <CardFooter className="flex-col space-y-4">
-                  <Button type="submit" className="w-full h-11 text-base" disabled={isLoading}>
+                  <Button type="submit" className="w-full h-11 text-base bg-purple-600 hover:bg-purple-700 text-white" disabled={isLoading}>
                     {isLoading ? (
                       <>
                         <Loader2 className="animate-spin" />
@@ -100,7 +86,7 @@ export default function ForgotPasswordPage() {
                       </>
                     )}
                   </Button>
-                  <Link href="/login" className="flex items-center gap-2 text-sm text-brand-purple-600 hover:text-brand-purple-700 font-medium mx-auto">
+                  <Link href="/login" className="flex items-center gap-2 text-sm text-yellow-400 hover:text-yellow-300 font-medium mx-auto">
                     <ArrowLeft size={16} />
                     Back to Login
                   </Link>
@@ -111,38 +97,33 @@ export default function ForgotPasswordPage() {
             <>
               <CardHeader>
                 <div className="flex justify-center mb-4">
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ type: "spring", stiffness: 200 }}
-                    className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center"
-                  >
-                    <CheckCircle2 size={32} className="text-green-600" />
-                  </motion.div>
+                  <div className="w-16 h-16 rounded-full bg-green-600/20 flex items-center justify-center">
+                    <CheckCircle2 size={32} className="text-green-500" />
+                  </div>
                 </div>
-                <CardTitle className="text-2xl text-brand-purple-900 text-center">Check Your Email</CardTitle>
-                <CardDescription className="text-center">
-                  We've sent a password reset link to <strong>{email}</strong>
+                <CardTitle className="text-2xl text-white text-center">Check Your Email</CardTitle>
+                <CardDescription className="text-center text-gray-400">
+                  We&apos;ve sent a password reset link to <strong className="text-white">{email}</strong>
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="text-sm text-gray-600 text-center space-y-2">
+                <div className="text-sm text-gray-400 text-center space-y-2">
                   <p>Click the link in the email to reset your password.</p>
-                  <p>Didn't receive it? Check your spam folder.</p>
+                  <p>Didn&apos;t receive it? Check your spam folder.</p>
                 </div>
               </CardContent>
               <CardFooter className="flex-col space-y-4">
-                <Button onClick={() => setIsSubmitted(false)} variant="outline" className="w-full">
+                <Button onClick={() => setIsSubmitted(false)} variant="outline" className="w-full bg-[#0f0a1a] border-gray-700 text-white hover:bg-purple-900/50">
                   Try Another Email
                 </Button>
-                <Link href="/login" className="flex items-center gap-2 text-sm text-brand-purple-600 hover:text-brand-purple-700 font-medium mx-auto">
+                <Link href="/login" className="flex items-center gap-2 text-sm text-yellow-400 hover:text-yellow-300 font-medium mx-auto">
                   <ArrowLeft size={16} />
                   Back to Login
                 </Link>
               </CardFooter>
             </>
           )}
-        </Card>
+        </div>
       </motion.div>
     </div>
   );

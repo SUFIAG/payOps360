@@ -37,7 +37,7 @@ export default function PaymentsPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">Payments</h1>
-          <p className="text-gray-500 mt-1">Monitor and manage payment transactions</p>
+          <p className="text-gray-600 mt-1">Monitor and manage payment transactions</p>
         </div>
         <Button>
           <Download size={16} />
@@ -51,7 +51,7 @@ export default function PaymentsPage() {
           <div className="flex flex-col md:flex-row gap-4">
             <div className="flex-1">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={20} />
                 <Input
                   placeholder="Search by transaction ID, merchant reference..."
                   value={search}
@@ -63,7 +63,7 @@ export default function PaymentsPage() {
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-purple-600"
+              className="px-4 py-2 border border-input rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
             >
               <option value="">All Statuses</option>
               <option value="INITIATED">Initiated</option>
@@ -89,11 +89,11 @@ export default function PaymentsPage() {
           {isLoading ? (
             <div className="space-y-4">
               {[...Array(10)].map((_, i) => (
-                <div key={i} className="h-16 bg-gray-100 rounded animate-pulse"></div>
+                <div key={i} className="h-16 bg-muted rounded animate-pulse"></div>
               ))}
             </div>
           ) : payments.length === 0 ? (
-            <div className="text-center py-12 text-gray-500">
+            <div className="text-center py-12 text-muted-foreground">
               <p>No payments found</p>
             </div>
           ) : (
@@ -101,22 +101,22 @@ export default function PaymentsPage() {
               <table className="w-full">
                 <thead>
                   <tr className="border-b border-gray-200">
-                    <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700">
+                    <th className="text-left py-3 px-4 text-sm font-semibold text-gray-900">
                       Transaction ID
                     </th>
-                    <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700">
+                    <th className="text-left py-3 px-4 text-sm font-semibold text-gray-900">
                       Amount
                     </th>
-                    <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700">
+                    <th className="text-left py-3 px-4 text-sm font-semibold text-gray-900">
                       Provider
                     </th>
-                    <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700">
+                    <th className="text-left py-3 px-4 text-sm font-semibold text-gray-900">
                       Status
                     </th>
-                    <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700">
+                    <th className="text-left py-3 px-4 text-sm font-semibold text-gray-900">
                       Created
                     </th>
-                    <th className="text-right py-3 px-4 text-sm font-semibold text-gray-700">
+                    <th className="text-right py-3 px-4 text-sm font-semibold text-gray-900">
                       Actions
                     </th>
                   </tr>
@@ -128,12 +128,12 @@ export default function PaymentsPage() {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ delay: index * 0.05 }}
-                      className="border-b border-gray-100 hover:bg-gray-50"
+                      className="border-b border-gray-100 hover:bg-gray-50 transition-colors"
                     >
                       <td className="py-3 px-4">
                         <div>
                           <p className="font-medium text-gray-900">{payment.externalId}</p>
-                          <p className="text-xs text-gray-500">{payment.merchantReference}</p>
+                          <p className="text-xs text-gray-600">{payment.merchantReference}</p>
                         </div>
                       </td>
                       <td className="py-3 px-4">
@@ -142,7 +142,7 @@ export default function PaymentsPage() {
                         </p>
                       </td>
                       <td className="py-3 px-4">
-                        <p className="text-sm text-gray-700">{payment.providerName}</p>
+                        <p className="text-sm text-gray-600">{payment.providerName}</p>
                       </td>
                       <td className="py-3 px-4">
                         <Badge className={getStatusColor(payment.status)}>
@@ -170,7 +170,7 @@ export default function PaymentsPage() {
 
           {/* Pagination */}
           {totalPages > 1 && (
-            <div className="flex items-center justify-between mt-6 pt-6 border-t">
+            <div className="flex items-center justify-between mt-6 pt-6 border-t border-gray-200">
               <Button
                 onClick={() => setPage(Math.max(0, page - 1))}
                 disabled={page === 0}

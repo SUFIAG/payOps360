@@ -10,9 +10,11 @@ import {
 export const authApi = {
   login: async (data: LoginRequest): Promise<AuthResponse> => {
     const response = await apiClient.post<AuthResponse>("/auth/login", data);
+    // Backend returns { success: true, data: { accessToken, refreshToken, user } }
+    const authData = response.data;
     // Store tokens
-    apiClient.storeTokens(response.data.accessToken, response.data.refreshToken);
-    return response.data;
+    apiClient.storeTokens(authData.accessToken, authData.refreshToken);
+    return authData;
   },
 
   register: async (data: RegisterRequest): Promise<User> => {

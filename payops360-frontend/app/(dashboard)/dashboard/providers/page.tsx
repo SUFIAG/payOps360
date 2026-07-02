@@ -19,8 +19,8 @@ export default function ProvidersPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-gray-900">Providers</h1>
-        <p className="text-gray-500 mt-1">Monitor payment provider health and performance</p>
+        <h1 className="text-3xl font-bold text-foreground">Providers</h1>
+        <p className="text-muted-foreground mt-1">Monitor payment provider health and performance</p>
       </div>
 
       {isLoading ? (
@@ -41,16 +41,16 @@ export default function ProvidersPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
             >
-              <Card className="hover:shadow-lg transition-shadow">
+              <Card className="hover:shadow-lg transition-shadow border-l-4 border-yellow-500">
                 <CardHeader>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="p-2 rounded-lg bg-brand-purple-50">
-                        <Server className="text-brand-purple-600" size={24} />
+                      <div className="p-2 rounded-lg bg-purple-100">
+                        <Server className="text-purple-600" size={24} />
                       </div>
                       <div>
                         <CardTitle className="text-lg">{provider.name}</CardTitle>
-                        <p className="text-sm text-gray-500">{provider.code}</p>
+                        <p className="text-sm text-gray-600">{provider.code}</p>
                       </div>
                     </div>
                     <Badge
@@ -64,7 +64,7 @@ export default function ProvidersPage() {
                   <div className="space-y-3">
                     <div className="flex items-center justify-between text-sm">
                       <span className="text-gray-600">Type</span>
-                      <span className="font-medium">{provider.type}</span>
+                      <span className="font-medium text-gray-900">{provider.type}</span>
                     </div>
                     <div className="flex items-center justify-between text-sm">
                       <span className="text-gray-600">Health</span>

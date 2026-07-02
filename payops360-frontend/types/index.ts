@@ -42,6 +42,12 @@ export interface Payment {
   providerName: string;
   merchantReference: string;
   customerEmail?: string;
+  customerName?: string;
+  paymentMethod?: string;
+  errorCode?: string;
+  errorMessage?: string;
+  retryCount: number;
+  metadata?: Record<string, any>;
   createdAt: string;
   updatedAt: string;
 }
@@ -64,9 +70,10 @@ export interface PaymentEvent {
   id: number;
   paymentId: number;
   eventType: string;
-  fromStatus: string;
-  toStatus: string;
-  description: string;
+  fromStatus?: string;
+  toStatus?: string;
+  description?: string;
+  message?: string;
   timestamp: string;
 }
 
@@ -134,17 +141,24 @@ export type AlertStatus = "NEW" | "ACKNOWLEDGED" | "INVESTIGATING" | "RESOLVED" 
 
 // Incident Types
 export interface Incident {
-  id: number;
+  id: string;
   category: IncidentCategory;
   severity: AlertSeverity;
   title: string;
   description: string;
   status: IncidentStatus;
-  alertCount: number;
-  affectedEntities: string[];
-  estimatedImpact: string;
-  createdAt: string;
+  correlatedAlertIds: string[];
+  affectedPaymentCount: number;
+  impactScore: number;
+  detectedAt: string;
+  acknowledgedAt?: string;
   resolvedAt?: string;
+  resolutionNotes?: string;
+  mttr?: number; // Mean Time To Resolve in minutes
+  alertCount?: number; // Backwards compatibility
+  affectedEntities?: string[]; // Backwards compatibility
+  estimatedImpact?: string; // Backwards compatibility
+  createdAt?: string; // Backwards compatibility
 }
 
 export type IncidentCategory =

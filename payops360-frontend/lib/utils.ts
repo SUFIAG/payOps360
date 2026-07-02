@@ -49,10 +49,10 @@ export function formatDate(date: string | Date, format: "short" | "long" | "rela
 export function getStatusColor(status: string): string {
   const statusColors: Record<string, string> = {
     // Payment statuses
-    INITIATED: "bg-brand-lavender-200 text-brand-purple-700",
-    AUTHORIZED: "bg-blue-100 text-blue-700",
-    CAPTURED: "bg-indigo-100 text-indigo-700",
-    PROCESSING: "bg-brand-yellow-200 text-yellow-800",
+    INITIATED: "bg-blue-100 text-blue-700",
+    AUTHORIZED: "bg-indigo-100 text-indigo-700",
+    CAPTURED: "bg-purple-100 text-purple-700",
+    PROCESSING: "bg-yellow-100 text-yellow-800",
     SETTLED: "bg-green-100 text-green-700",
     FAILED: "bg-red-100 text-red-700",
     RETRY_PENDING: "bg-orange-100 text-orange-700",

@@ -22,7 +22,7 @@ export default function AlertsPage() {
     <div className="space-y-6">
       <div>
         <h1 className="text-3xl font-bold text-gray-900">Alerts</h1>
-        <p className="text-gray-500 mt-1">Monitor and manage system alerts</p>
+        <p className="text-gray-600 mt-1">Monitor and manage system alerts</p>
       </div>
 
       <Card>
@@ -36,7 +36,7 @@ export default function AlertsPage() {
           ) : alerts.length === 0 ? (
             <div className="text-center py-12">
               <AlertTriangle className="mx-auto text-gray-400 mb-4" size={48} />
-              <p className="text-gray-500">No active alerts</p>
+              <p className="text-gray-600">No active alerts</p>
             </div>
           ) : (
             <div className="space-y-4">
@@ -46,15 +46,15 @@ export default function AlertsPage() {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.05 }}
-                  className="flex items-start gap-4 p-4 border border-gray-200 rounded-lg hover:border-brand-purple-300 transition-colors"
+                  className="flex items-start gap-4 p-4 border border-gray-200 rounded-lg hover:border-purple-600 transition-colors bg-white"
                 >
                   <div
                     className={`p-2 rounded-lg ${
                       alert.severity === "CRITICAL"
-                        ? "bg-red-50"
+                        ? "bg-red-100"
                         : alert.severity === "HIGH"
-                        ? "bg-orange-50"
-                        : "bg-yellow-50"
+                        ? "bg-yellow-100"
+                        : "bg-blue-100"
                     }`}
                   >
                     <AlertTriangle
@@ -62,8 +62,8 @@ export default function AlertsPage() {
                         alert.severity === "CRITICAL"
                           ? "text-red-600"
                           : alert.severity === "HIGH"
-                          ? "text-orange-600"
-                          : "text-yellow-600"
+                          ? "text-yellow-600"
+                          : "text-blue-600"
                       }
                       size={24}
                     />
