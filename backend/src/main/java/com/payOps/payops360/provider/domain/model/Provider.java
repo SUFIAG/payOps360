@@ -2,6 +2,7 @@ package com.payops.payops360.provider.domain.model;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.Instant;
 import java.util.Map;
@@ -34,7 +35,9 @@ public class Provider {
     private final Double slaAvailability;     // % availability SLA
 
     // Status
+    @Setter
     private boolean isActive;
+    @Setter
     private boolean isHealthy;
 
     // Metadata
@@ -43,6 +46,7 @@ public class Provider {
 
     // Timestamps
     private final Instant createdAt;
+    @Setter
     private Instant updatedAt;
 
     /**

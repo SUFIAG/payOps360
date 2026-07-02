@@ -4,6 +4,7 @@ import com.payops.payops360.common.exception.IllegalStateTransitionException;
 import com.payops.payops360.payment.domain.valueobject.Money;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -47,20 +48,28 @@ public class Payment {
     private final String paymentMethodLast4;
 
     // Status & Lifecycle
+    @Setter
     private PaymentStatus status;
+    @Setter
     private PaymentStatus previousStatus;
+    @Setter
     private Instant statusChangedAt;
 
     // Tracking
     @Builder.Default
+    @Setter
     private int retryCount = 0;
+    @Setter
     private boolean isStuck;
+    @Setter
     private Instant stuckDetectedAt;
 
     // Metadata
     @Builder.Default
+    @Setter
     private Map<String, Object> metadata = Map.of();
     @Builder.Default
+    @Setter
     private List<String> tags = List.of();
 
     // Timeline
@@ -69,6 +78,7 @@ public class Payment {
 
     // Timestamps
     private final Instant createdAt;
+    @Setter
     private Instant updatedAt;
 
     /**
