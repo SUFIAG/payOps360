@@ -1,8 +1,8 @@
 -- V10: Create payment_lifecycle_metrics table
 
 CREATE TABLE payment_lifecycle_metrics (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    payment_id UUID NOT NULL,
+    id BIGSERIAL PRIMARY KEY,
+    payment_id BIGINT NOT NULL,
     state_from VARCHAR(50),
     state_to VARCHAR(50) NOT NULL,
     duration_ms BIGINT NOT NULL,

@@ -1,7 +1,7 @@
 -- V11: Create provider_performance_metrics table
 
 CREATE TABLE provider_performance_metrics (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    id BIGSERIAL PRIMARY KEY,
     provider_id VARCHAR(100) NOT NULL,
     metric_timestamp TIMESTAMP NOT NULL,
     time_bucket VARCHAR(20) NOT NULL, -- HOURLY, DAILY, WEEKLY

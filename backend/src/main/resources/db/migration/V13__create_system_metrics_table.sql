@@ -1,7 +1,7 @@
 -- V13: Create system_metrics table
 
 CREATE TABLE system_metrics (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    id BIGSERIAL PRIMARY KEY,
     metric_timestamp TIMESTAMP NOT NULL,
     metric_name VARCHAR(100) NOT NULL,
     metric_value DOUBLE PRECISION NOT NULL,

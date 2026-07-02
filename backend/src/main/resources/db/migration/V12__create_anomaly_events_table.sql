@@ -1,7 +1,7 @@
 -- V12: Create anomaly_events table
 
 CREATE TABLE anomaly_events (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    id BIGSERIAL PRIMARY KEY,
     anomaly_type VARCHAR(50) NOT NULL,
     entity_type VARCHAR(50) NOT NULL, -- PAYMENT, PROVIDER, SYSTEM
     entity_id VARCHAR(100),
