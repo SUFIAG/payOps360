@@ -86,7 +86,7 @@ pnpm-debug.log*
 
 # Next.js
 .next/
-out/
+/frontend/out/
 
 # Production build
 /build

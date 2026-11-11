@@ -1,81 +1,53 @@
-import { type ClassValue, clsx } from "clsx";
+import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { formatDistanceToNowStrict } from "date-fns";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function formatCurrency(amount: number, currency: string = "USD"): string {
+export function formatMoney(value: number, currency = "USD", compact = false) {
   return new Intl.NumberFormat("en-US", {
     style: "currency",
     currency,
-  }).format(amount);
+    notation: compact ? "compact" : "standard",
+    maximumFractionDigits: compact ? 1 : 2,
+  }).format(value);
 }
 
-export function formatDate(date: string | Date, format: "short" | "long" | "relative" = "short"): string {
-  const d = typeof date === "string" ? new Date(date) : date;
-
-  if (format === "relative") {
-    const now = new Date();
-    const diff = now.getTime() - d.getTime();
-    const seconds = Math.floor(diff / 1000);
-    const minutes = Math.floor(seconds / 60);
-    const hours = Math.floor(minutes / 60);
-    const days = Math.floor(hours / 24);
-
-    if (days > 0) return `${days}d ago`;
-    if (hours > 0) return `${hours}h ago`;
-    if (minutes > 0) return `${minutes}m ago`;
-    return `${seconds}s ago`;
-  }
-
-  if (format === "long") {
-    return d.toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-  }
-
-  return d.toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
+export function formatNumber(value: number, compact = false) {
+  return new Intl.NumberFormat("en-US", { notation: compact ? "compact" : "standard", maximumFractionDigits: 1 }).format(value);
 }
 
-export function getStatusColor(status: string): string {
-  const statusColors: Record<string, string> = {
-    // Payment statuses
-    INITIATED: "bg-blue-100 text-blue-700",
-    AUTHORIZED: "bg-indigo-100 text-indigo-700",
-    CAPTURED: "bg-purple-100 text-purple-700",
-    PROCESSING: "bg-yellow-100 text-yellow-800",
-    SETTLED: "bg-green-100 text-green-700",
-    FAILED: "bg-red-100 text-red-700",
-    RETRY_PENDING: "bg-orange-100 text-orange-700",
-    RETRY_IN_PROGRESS: "bg-amber-100 text-amber-700",
-    RETRY_FAILED: "bg-red-200 text-red-800",
-    REFUNDED: "bg-gray-100 text-gray-700",
-    CHARGEBACK: "bg-pink-100 text-pink-700",
-    CANCELLED: "bg-gray-200 text-gray-800",
-
-    // Alert severities
-    CRITICAL: "bg-red-100 text-red-800",
-    HIGH: "bg-orange-100 text-orange-800",
-    MEDIUM: "bg-yellow-100 text-yellow-800",
-    LOW: "bg-blue-100 text-blue-800",
-    INFO: "bg-gray-100 text-gray-800",
-
-    // Generic
-    ACTIVE: "bg-green-100 text-green-700",
-    INACTIVE: "bg-gray-100 text-gray-700",
-    PENDING: "bg-yellow-100 text-yellow-700",
-    RESOLVED: "bg-green-100 text-green-700",
-  };
-
-  return statusColors[status] || "bg-gray-100 text-gray-700";
+export function formatPercent(value: number | undefined | null, digits = 1) {
+  return value === undefined || value === null ? "—" : `${value.toFixed(digits)}%`;
 }
 
+export function formatDateTime(value?: string) {
+  if (!value) return "—";
+  return new Date(value).toLocaleString("en-GB", { dateStyle: "medium", timeStyle: "short" });
+}
+
+export function timeAgo(value?: string) {
+  return value ? `${formatDistanceToNowStrict(new Date(value))} ago` : "—";
+}
+
+/** Regional-indicator flag emoji for an ISO-3166 alpha-2 code. */
+export function flag(country?: string) {
+  if (!country || !/^[A-Z]{2}$/.test(country)) return "🌐";
+  return String.fromCodePoint(...[...country].map((c) => 0x1f1a5 + c.charCodeAt(0)));
+}
+
+export function humanize(value?: string) {
+  return value ? value.toLowerCase().replace(/_/g, " ").replace(/^\w/, (c) => c.toUpperCase()) : "";
+}
+
+/** Success rate of completed payments (backend sends raw counts). */
+export function successRate(s: { succeeded: number; failed: number }) {
+  const done = s.succeeded + s.failed;
+  return done === 0 ? 0 : (s.succeeded * 100) / done;
+}
+
+export function change(value: number, previous?: number | null) {
+  return previous === undefined || previous === null || previous === 0 ? undefined : ((value - previous) * 100) / Math.abs(previous);
+}

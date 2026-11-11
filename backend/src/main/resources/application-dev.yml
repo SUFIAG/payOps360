@@ -1,0 +1,49 @@
+# Local development profile. Never deploy with this profile active.
+spring:
+  datasource:
+    password: ${DB_PASSWORD:postgres}
+
+springdoc:
+  api-docs:
+    enabled: true
+    path: /api-docs
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+
+management:
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    com.payops: DEBUG
+
+payops:
+  app:
+    base-url: ${APP_BASE_URL:http://localhost:3417}
+  onboarding:
+    self-signup-enabled: ${PAYOPS_SELF_SIGNUP:true}
+    recovery-per-ip-per-minute: 30
+  security:
+    jwt:
+      # Dev-only key. Startup fails if this value is used outside the dev profile.
+      secret: ${JWT_SECRET:ZGV2LW9ubHktcGF5b3BzMzYwLWp3dC1zaWduaW5nLWtleS1kby1ub3QtdXNlLWluLXByb2Q=}
+    data-encryption-key: ${DATA_ENCRYPTION_KEY:ZGV2LW9ubHktYWVzMjU2LWtleS1wYXlvcHMzNjAtISE=}
+    cookie-secure: false
+    lockout:
+      max-failed-attempts: 5
+      lock-duration: 15m
+      max-ip-failures-per15-minutes: 1000
+    rate-limit:
+      # Relaxed so automated smoke tests can run; production keeps 10/min.
+      login-per-ip-per-minute: 120
+      api-per-user-per-minute: 600
+  bootstrap:
+    # Seeds a demo tenant on an empty database (dev only).
+    enabled: true
+    admin-email: admin@payops360.io
+    admin-password: ${PAYOPS_ADMIN_PASSWORD:PayOps#Admin2026}
+  simulator:
+    enabled: true

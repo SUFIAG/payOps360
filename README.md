@@ -1,151 +1,85 @@
-# PayOps360 - Payment Operations Management System
+# PayOps360 — AI-Native Payment Operations Command Center
 
-**PayOps360** is a comprehensive payment operations management platform designed to streamline payment processing, monitoring, and analytics across multiple payment providers.
+PayOps360 gives payment operations teams one real-time view of every payment, provider and corridor. An AI layer detects anomalies, correlates incidents, explains root causes, scores risk, recommends routing and answers questions in plain language.
 
-## 📋 Project Overview
+**Built for:**
+- cross-border remittance operators;
+- PSPs and payment facilitators;
+- digital banks and EMIs;
+- high-volume merchants.
 
-PayOps360 provides real-time payment tracking, intelligent alerting, performance analytics, and incident management capabilities for modern payment operations teams.
+See the [BRD](docs/BRD.md) for scope, target audience and differentiation.
 
-### Key Features
+| Doc | Contents |
+|---|---|
+| [docs/BRD.md](docs/BRD.md) | Problem, target customers and personas, scope, AI capabilities, NFRs, KPIs |
+| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | Hexagonal modular monolith, module map, ports, jobs, frontend structure |
+| [docs/SECURITY.md](docs/SECURITY.md) | MFA, sessions, lockout, RBAC, audit chain, AI governance, production checklist |
 
-- 💳 **Multi-Provider Payment Processing** - Unified interface for multiple payment gateways
-- 📊 **Real-Time Analytics** - Live dashboards and performance metrics
-- 🔔 **Intelligent Alerting** - Smart notifications for payment anomalies
-- 🎯 **Incident Management** - Track and resolve payment issues efficiently
-- 👥 **User Management** - Role-based access control and team collaboration
-- 📈 **Performance Monitoring** - Provider performance tracking and SLA monitoring
-- 🔍 **Advanced Search & Filtering** - Powerful payment transaction search
-- 🌐 **WebSocket Support** - Real-time updates and notifications
+## Tech stack
 
-## 🏗️ Project Structure
+- **Backend:** Java 17, Spring Boot 3.5, Spring Security, JPA + JDBC, PostgreSQL, Flyway, ShedLock, jjwt, Anthropic Java SDK (Claude), ArchUnit
+- **Frontend:** Next.js 16, React 19, TypeScript, Tailwind CSS v4, TanStack Query, Zustand, ECharts, Framer Motion
 
-```
-payOps360/
-├── payops360-backend/       # Spring Boot backend application
-├── payops360-frontend/      # Next.js frontend application
-├── docs/                    # Documentation files
-└── README.md               # This file
-```
+## Quick start (local)
 
-## 🚀 Quick Start
-
-### Prerequisites
-
-- **Backend**: Java 17+, Maven 3.6+, PostgreSQL 14+
-- **Frontend**: Node.js 18+, npm 9+
-
-### Backend Setup
+Prerequisites: JDK 17+, Maven 3.9+, Node 20+, PostgreSQL 14+ with an empty database `payops360`.
 
 ```bash
-cd payops360-backend
-mvn clean install
-mvn spring-boot:run
-```
+# 1. Backend (dev profile seeds a demo tenant and starts the live traffic simulator)
+cd backend
+DB_PASSWORD=postgres mvn spring-boot:run          # http://localhost:8417  (Swagger: /swagger-ui.html)
 
-Backend will run on `http://localhost:8080`
-
-### Frontend Setup
-
-```bash
-cd payops360-frontend
+# 2. Frontend
+cd frontend
 npm install
-npm run dev
+npm run dev                                       # http://localhost:3417
 ```
 
-Frontend will run on `http://localhost:3000`
+Sign in at <http://localhost:3417> as `admin@payops360.io` with password `PayOps#Admin2026`.
 
-## 📚 Documentation
+The demo tenant also has these users, all with the same dev password:
+- `ops@payops360.io` (Operations Manager)
+- `analyst@payops360.io` (Analyst)
+- `support@payops360.io` (Support)
+- `auditor@payops360.io` (Auditor)
 
-Detailed documentation is available in the [`docs/`](./docs/) folder:
+The demo tenant has MFA optional so you can explore quickly. Enable MFA under **Security**; production tenants default to mandatory MFA.
 
-- **[Master Documentation](./docs/PAYOPS360_COMPLETE_MASTER_DOCUMENTATION.md)** - Complete system overview
-- **[Backend Help](./docs/BACKEND_HELP.md)** - Backend setup and development guide
-- **[Frontend README](./docs/FRONTEND_README.md)** - Frontend setup and development guide
-- **[Implementation Phases](./docs/PHASES_1_TO_5_COMPLETE_IMPLEMENTATION.md)** - Development roadmap
-- **[Quick Reference](./docs/QUICK_REFERENCE_UPDATED.md)** - API and feature quick reference
+### Enable generative AI (Claude)
 
-### Module Documentation
-
-- [Payment Module](./docs/PAYMENT_MODULE_COMPLETE.md)
-- [Alert System](./docs/PHASE2_ALERT_MODULE_COMPLETE.md)
-- [Background Schedulers](./docs/BACKGROUND_SCHEDULERS_COMPLETE.md)
-- [User Management](./docs/USER_MANAGEMENT_STATUS.md)
-- [Theme Implementation](./docs/THEME_IMPLEMENTATION.md)
-
-## 🛠️ Tech Stack
-
-### Backend
-- **Framework**: Spring Boot 3.x
-- **Database**: PostgreSQL with Flyway migrations
-- **Security**: Spring Security with JWT
-- **WebSocket**: STOMP over WebSocket
-- **API Documentation**: OpenAPI/Swagger
-
-### Frontend
-- **Framework**: Next.js 14+ (App Router)
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **State Management**: Zustand
-- **UI Components**: Custom component library
-- **Real-time**: WebSocket client
-
-## 🔐 Default Credentials
-
-For development environment:
-- **Username**: `admin@payops360.com`
-- **Password**: `admin123`
-
-⚠️ **Important**: Change default credentials in production!
-
-## 🧪 Testing
-
-### Backend Tests
 ```bash
-cd payops360-backend
-mvn test
+export ANTHROPIC_API_KEY=sk-ant-...      # optional; default model claude-opus-5-5 (override with PAYOPS_AI_MODEL)
 ```
 
-### Frontend Tests
+Without a key, every AI feature still works on the built-in deterministic insight engine.
+
+### Demo scenario
+
+The simulator streams about 40 payments per minute. Every 30 minutes, at minutes 20 to 28, the `checkout` provider degrades. Watch the following happen live:
+- AI anomaly alerts;
+- automatic incident correlation;
+- the health score dropping;
+- reroute recommendations.
+
+Open the incident and click **Investigate with AI**.
+
+### Tests
+
 ```bash
-cd payops360-frontend
-npm test
+cd backend && mvn test                     # domain, security and ArchUnit architecture tests
+node scripts/smoke-test.mjs                # 59 end-to-end API checks against a running dev backend
+pwsh scripts/reset-dev-db.ps1              # recreate the local dev database (re-seeded on next start)
 ```
 
-## 📦 Build for Production
+## Configuration (environment)
 
-### Backend
-```bash
-cd payops360-backend
-mvn clean package
-java -jar target/payops360-*.jar
-```
-
-### Frontend
-```bash
-cd payops360-frontend
-npm run build
-npm start
-```
-
-## 🤝 Contributing
-
-This is an MVP project. For contributions:
-
-1. Follow the existing code structure and naming conventions
-2. Write clean, documented code
-3. Test your changes thoroughly
-4. Update documentation as needed
-
-## 📄 License
-
-Proprietary - All rights reserved
-
-## 📞 Support
-
-For issues or questions, please refer to the documentation in the `docs/` folder.
-
----
-
-**Version**: 1.0.0 (MVP)  
-**Last Updated**: June 2026
-
+| Variable | Purpose |
+|---|---|
+| `DB_URL`, `DB_USERNAME`, `DB_PASSWORD` | PostgreSQL connection |
+| `JWT_SECRET` | Base64 HMAC key (≥ 256 bits; required outside dev) |
+| `DATA_ENCRYPTION_KEY` | Base64 AES-256 key for MFA secrets (required outside dev) |
+| `ALLOWED_ORIGINS` | CORS allow-list |
+| `ANTHROPIC_API_KEY`, `PAYOPS_AI_MODEL` | Optional generative AI |
+| `PAYOPS_PORT` | API port (default 8417) |
+| `BACKEND_URL` | Frontend → API proxy target (default `http://localhost:8417`) |

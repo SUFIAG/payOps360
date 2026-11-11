@@ -1,91 +1,189 @@
 @import "tailwindcss";
+@plugin "tailwindcss-animate";
 
-/* PayOps360 Design System - Purple + Yellow + Grey */
+@custom-variant dark (&:where(.dark, .dark *));
 
-:root {
-  --background: #fafafa;
-  --foreground: #0f0a1a;
-}
+/*
+ * PayOps360 design tokens — "Ledger" identity.
+ * Warm ivory paper and graphite ink (calm, private-banking restraint),
+ * jade for money in motion and healthy state, brass reserved for AI and premium moments.
+ * Accent text shades (jade/brass 300-400) adapt per theme so contrast holds on both.
+ */
+@theme {
+  --color-jade-50: #ecf8f3;
+  --color-jade-100: #d1efe3;
+  --color-jade-200: #a5dfc9;
+  --color-jade-300: var(--jade-300);
+  --color-jade-400: var(--jade-400);
+  --color-jade-500: #17996f;
+  --color-jade-600: #0e7c5b;
+  --color-jade-700: #0c634a;
+  --color-jade-800: #0b4f3c;
+  --color-jade-900: #093f31;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-}
+  --color-brass-200: #efdcb5;
+  --color-brass-300: var(--brass-300);
+  --color-brass-400: var(--brass-400);
+  --color-brass-500: #b8914e;
+  --color-brass-600: #96743a;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0f0a1a;
-    --foreground: #fafafa;
+  --color-ink-50: #f7f5f1;
+  --color-ink-100: #ece9e3;
+  --color-ink-200: #d9d5cc;
+  --color-ink-300: #b9b4a9;
+  --color-ink-400: #8e897f;
+  --color-ink-500: #6e6a62;
+  --color-ink-600: #55524c;
+  --color-ink-700: #3c3a36;
+  --color-ink-800: #2a2c31;
+  --color-ink-900: #1d1f23;
+  --color-ink-950: #141518;
+
+  --color-danger: var(--danger);
+  --color-warning: var(--warning);
+  --color-info: var(--info);
+  --color-success: var(--jade-400);
+
+  --color-background: var(--bg);
+  --color-foreground: var(--fg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+
+  --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-heading), var(--font-body), ui-sans-serif, sans-serif;
+  --font-mono: var(--font-code), ui-monospace, monospace;
+
+  --animate-pulse-ring: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  @keyframes pulse-ring {
+    0% { box-shadow: 0 0 0 0 color-mix(in oklab, currentColor 55%, transparent); }
+    70% { box-shadow: 0 0 0 8px transparent; }
+    100% { box-shadow: 0 0 0 0 transparent; }
+  }
+  --animate-rise: rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: none; }
+  }
+  --animate-shimmer: shimmer 1.6s linear infinite;
+  @keyframes shimmer {
+    from { background-position: -200% 0; }
+    to { background-position: 200% 0; }
   }
 }
 
+:root {
+  --bg: #f6f4ef;
+  --fg: #1a1b1f;
+  --surface: #ffffff;
+  --surface-2: #f1eee8;
+  --border: #e5e0d6;
+  --muted: #6b6861;
+  --jade-300: #0e7c5b;
+  --jade-400: #0c6e51;
+  --brass-300: #8a6a32;
+  --brass-400: #8a6a32;
+  --danger: #c93a3f;
+  --warning: #b57614;
+  --info: #3b6fd8;
+  --shadow-card: 0 1px 2px rgba(26, 27, 31, 0.04), 0 2px 8px -2px rgba(26, 27, 31, 0.06);
+  --shadow-card-hover: 0 2px 4px rgba(26, 27, 31, 0.05), 0 12px 28px -10px rgba(26, 27, 31, 0.14);
+  color-scheme: light;
+}
+
+.dark {
+  --bg: #18191d;
+  --fg: #eeece7;
+  --surface: #202227;
+  --surface-2: #292c32;
+  --border: #34373e;
+  --muted: #a5a29a;
+  --jade-300: #6fd3ae;
+  --jade-400: #3fbf92;
+  --brass-300: #e6cc96;
+  --brass-400: #d6b574;
+  --danger: #f06a6e;
+  --warning: #e8b04f;
+  --info: #7aa5f5;
+  --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 2px 10px -4px rgba(0, 0, 0, 0.4);
+  --shadow-card-hover: 0 1px 0 rgba(255, 255, 255, 0.05) inset, 0 16px 32px -14px rgba(0, 0, 0, 0.6);
+  color-scheme: dark;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-feature-settings: "cv11", "ss01";
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Fix for select dropdowns */
-select {
-  color: #1f2937 !important;
-  background-color: #ffffff !important;
+/* Figures line up in tables and KPIs. */
+.tabular-nums, td, .font-mono { font-variant-numeric: tabular-nums; }
+
+::selection { background: color-mix(in oklab, var(--color-jade-500) 25%, transparent); }
+
+/* Quiet backdrop: a single soft jade/brass wash at the top, no grids or neon. */
+.console-backdrop {
+  background:
+    radial-gradient(900px 420px at 100% -8%, color-mix(in oklab, var(--color-jade-500) 7%, transparent), transparent 70%),
+    radial-gradient(700px 360px at 0% -10%, color-mix(in oklab, var(--color-brass-500) 6%, transparent), transparent 70%),
+    var(--bg);
 }
 
-select option {
-  color: #1f2937 !important;
-  background-color: #ffffff !important;
+.glass {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-card);
 }
 
-/* Dark theme select fix */
-.dark select {
-  color: #f3f4f6 !important;
-  background-color: #1a1229 !important;
+.card-lift {
+  transition: box-shadow 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+.card-lift:hover {
+  box-shadow: var(--shadow-card-hover);
+  border-color: color-mix(in oklab, var(--border) 70%, var(--muted));
 }
 
-.dark select option {
-  color: #f3f4f6 !important;
-  background-color: #1a1229 !important;
+/* Signature panel: always ink, used for the login story and hero moments. */
+.ink-panel {
+  background:
+    radial-gradient(700px 400px at 110% -10%, rgba(23, 153, 111, 0.22), transparent 65%),
+    radial-gradient(600px 380px at -20% 110%, rgba(184, 145, 78, 0.18), transparent 65%),
+    #141518;
+  color: #eeece7;
 }
 
-/* Ensure input fields have proper colors */
-input[type="text"]:not([class*="text-"]),
-input[type="email"]:not([class*="text-"]),
-input[type="password"]:not([class*="text-"]),
-input[type="date"]:not([class*="text-"]),
-input[type="number"]:not([class*="text-"]),
-textarea:not([class*="text-"]) {
-  color: #1f2937;
+.text-gradient-brand {
+  background: linear-gradient(95deg, #8fe0c1, #3fbf92 60%, #2fa57d);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
-.dark input[type="text"]:not([class*="text-"]),
-.dark input[type="email"]:not([class*="text-"]),
-.dark input[type="password"]:not([class*="text-"]),
-.dark input[type="date"]:not([class*="text-"]),
-.dark input[type="number"]:not([class*="text-"]),
-.dark textarea:not([class*="text-"]) {
-  color: #f3f4f6;
+.glow-brand {
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--color-brass-400) 35%, transparent), 0 10px 30px -10px color-mix(in oklab, var(--color-brass-400) 45%, transparent);
 }
 
-/* Fix autofill colors for light backgrounds */
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
-  -webkit-text-fill-color: #1f2937 !important;
-  transition: background-color 5000s ease-in-out 0s;
+.hairline { background: linear-gradient(90deg, transparent, var(--border), transparent); height: 1px; }
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-thumb { background: color-mix(in oklab, var(--muted) 35%, transparent); border-radius: 8px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
 
-/* Fix autofill colors for dark backgrounds */
-.dark input:-webkit-autofill,
-.dark input:-webkit-autofill:hover,
-.dark input:-webkit-autofill:focus,
-.dark input:-webkit-autofill:active {
-  -webkit-text-fill-color: #f3f4f6 !important;
-  -webkit-box-shadow: 0 0 0 1000px #1a1229 inset !important;
-  box-shadow: 0 0 0 1000px #1a1229 inset !important;
-  transition: background-color 5000s ease-in-out 0s;
-}
-
-
-
-
+/* Markdown answers from the AI copilot */
+.prose-ai { font-size: 0.875rem; line-height: 1.6; }
+.prose-ai p { margin: 0.4rem 0; }
+.prose-ai ul, .prose-ai ol { padding-left: 1.2rem; margin: 0.4rem 0; }
+.prose-ai ul { list-style: disc; }
+.prose-ai ol { list-style: decimal; }
+.prose-ai h3 { font-weight: 600; margin-top: 0.8rem; }
+.prose-ai strong { color: var(--color-jade-400); font-weight: 600; }
+.prose-ai code { font-family: var(--font-mono); font-size: 0.78rem; padding: 0.05rem 0.3rem; border-radius: 0.3rem; background: var(--surface-2); }
+.prose-ai table { width: 100%; border-collapse: collapse; margin: 0.5rem 0; font-size: 0.8rem; }
+.prose-ai th, .prose-ai td { border-bottom: 1px solid var(--border); padding: 0.3rem 0.4rem; text-align: left; }
+.prose-ai th { color: var(--muted); font-weight: 500; }

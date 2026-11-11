@@ -1,235 +1,167 @@
-# ============================================
-# PayOps360 Application Configuration
-# AI-Powered Payment Operations Platform
-# ============================================
-
 spring:
   application:
     name: payops360
-
-  main:
-    allow-bean-definition-overriding: true
-
   profiles:
-    active: dev
-
-  # ============================================
-  # DATABASE CONFIGURATION
-  # ============================================
+    default: dev
   datasource:
-    url: jdbc:postgresql://localhost:5432/payops360
-    username: postgres
-    password: postgres
-    driver-class-name: org.postgresql.Driver
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/payops360}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:}
     hikari:
       maximum-pool-size: 20
       minimum-idle: 5
-      connection-timeout: 30000
-      idle-timeout: 600000
-      max-lifetime: 1800000
-      pool-name: PayOps360-HikariCP
-
-  # ============================================
-  # JPA / HIBERNATE CONFIGURATION
-  # ============================================
+      pool-name: payops-pool
   jpa:
+    open-in-view: false
     hibernate:
       ddl-auto: validate
-    show-sql: false
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-        format_sql: true
-        use_sql_comments: false
         jdbc:
-          batch_size: 20
+          time_zone: UTC
+          batch_size: 50
         order_inserts: true
         order_updates: true
-    open-in-view: false
-
-  # ============================================
-  # FLYWAY CONFIGURATION
-  # ============================================
   flyway:
     enabled: true
-    baseline-on-migrate: true
     locations: classpath:db/migration
-
-  # ============================================
-  # JACKSON CONFIGURATION
-  # ============================================
   jackson:
     serialization:
       write-dates-as-timestamps: false
-      indent-output: true
     deserialization:
       fail-on-unknown-properties: false
     default-property-inclusion: non_null
     time-zone: UTC
-
-  # ============================================
-  # SECURITY CONFIGURATION
-  # ============================================
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: http://localhost:8080
-
-# ============================================
-# SERVER CONFIGURATION
-# ============================================
-server:
-  port: 8080
+  threads:
+    virtual:
+      enabled: true
   servlet:
-    context-path: /
-  compression:
-    enabled: true
-    mime-types: application/json,application/xml,text/html,text/xml,text/plain
-  error:
-    include-message: always
-    include-binding-errors: always
-    include-stacktrace: never
-    include-exception: false
+    multipart:
+      # Settlement files are streamed to disk above the threshold, never held in memory.
+      max-file-size: 10MB
+      max-request-size: 11MB
+      file-size-threshold: 256KB
 
-# ============================================
-# ACTUATOR CONFIGURATION
-# ============================================
+server:
+  port: ${PAYOPS_PORT:8417}
+  shutdown: graceful
+  forward-headers-strategy: framework
+  error:
+    include-message: never
+    include-stacktrace: never
+    include-binding-errors: never
+  servlet:
+    session:
+      cookie:
+        http-only: true
+        secure: true
+
 management:
   endpoints:
     web:
       exposure:
-        include: health,info,metrics,prometheus
-      base-path: /actuator
+        include: health,info,prometheus,metrics
   endpoint:
     health:
-      show-details: when-authorized
-  metrics:
-    export:
-      prometheus:
+      show-details: never
+      probes:
         enabled: true
+  metrics:
     tags:
       application: ${spring.application.name}
 
-# ============================================
-# SPRINGDOC / SWAGGER CONFIGURATION
-# ============================================
 springdoc:
   api-docs:
-    path: /api-docs
-    enabled: true
+    enabled: false
   swagger-ui:
-    path: /swagger-ui.html
-    enabled: true
-    operations-sorter: method
-    tags-sorter: alpha
-    doc-expansion: none
-    disable-swagger-default-url: true
-    display-request-duration: true
+    enabled: false
 
-# ============================================
-# LOGGING CONFIGURATION
-# ============================================
 logging:
   level:
     root: INFO
-    com.payops: DEBUG
-    org.springframework.web: INFO
-    org.springframework.security: INFO
-    org.hibernate.SQL: DEBUG
-    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    com.payops: INFO
   pattern:
-    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
-    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+    console: "%d{ISO8601} %-5level [%X{correlationId:-}] %logger{36} - %msg%n"
 
-# ============================================
-# APPLICATION CUSTOM PROPERTIES
-# ============================================
 payops:
-  # Security
+  app:
+    # Public URL of the web console. Links in e-mails (reset, invitation, verification) point here.
+    base-url: ${APP_BASE_URL:http://localhost:3417}
+  onboarding:
+    # Public organisation sign-up. Off unless explicitly enabled.
+    self-signup-enabled: ${PAYOPS_SELF_SIGNUP:false}
+    new-organization-mfa-required: true
+    # Per-IP budget for forgot/reset password, invitation acceptance, sign-up and verification.
+    recovery-per-ip-per-minute: 5
+  mail:
+    # SMTP is used when spring.mail.host is set (env SPRING_MAIL_HOST, SPRING_MAIL_PORT,
+    # SPRING_MAIL_USERNAME, SPRING_MAIL_PASSWORD). Without it, messages are logged (content withheld).
+    from: ${MAIL_FROM:PayOps360 <no-reply@payops360.io>}
+    batch-size: 25
+    poll-interval: PT10S
+  notifications:
+    # Delivery outbox for Slack / Teams / webhook / PagerDuty / e-mail channels.
+    batch-size: 50
+    poll-interval: PT10S
+    escalation-interval: PT1M
+    connect-timeout: PT5S
+    read-timeout: PT10S
+    # Plain-http / private-network webhook targets. Defaults to true only in the dev profile.
+    # allow-insecure-targets: false
+  incidents:
+    sla-check-interval: PT1M
   security:
     jwt:
-      secret: ${JWT_SECRET:payops360-super-secret-key-change-in-production-min-256-bits}
-      expiration: 86400000 # 24 hours in milliseconds
-      refresh-expiration: 604800000 # 7 days in milliseconds
-
-  # Performance
-  performance:
-    max-page-size: 100
-    default-page-size: 20
-    query-timeout-seconds: 30
-
-  # Provider Health Monitoring
-  provider-health:
-    snapshot-interval-seconds: 60
-    alert-threshold-success-rate: 95.0
-    alert-threshold-latency-ms: 3000
-
-  # Alerts
-  alerts:
-    deduplication-window-minutes: 5
-    auto-resolve-after-minutes: 60
-
-  # Incident Correlation
-  incident:
-    correlation-window-seconds: 300
-    min-alerts-for-incident: 3
-
-  # Retry Configuration
-  retry:
-    max-attempts: 3
-    initial-delay-seconds: 5
-    max-delay-seconds: 300
-
-  # AI Configuration (Phase 5)
+      # 256-bit+ secret, base64 encoded. Mandatory outside the dev profile.
+      secret: ${JWT_SECRET:}
+      issuer: payops360
+      access-token-ttl: 15m
+      mfa-token-ttl: 5m
+    refresh-token-ttl: 12h
+    # AES-256 key (base64) protecting MFA secrets at rest. Mandatory outside dev.
+    data-encryption-key: ${DATA_ENCRYPTION_KEY:}
+    cookie-secure: true
+    allowed-origins: ${ALLOWED_ORIGINS:http://localhost:3417}
+    lockout:
+      max-failed-attempts: 5
+      lock-duration: 15m
+      # Credential-stuffing guard: failed logins from one IP in 15 minutes.
+      max-ip-failures-per15-minutes: 30
+    rate-limit:
+      login-per-ip-per-minute: 10
+      api-per-user-per-minute: 600
+    password:
+      min-length: 12
+      history-depth: 5
+      max-age-days: 90
   ai:
+    # Claude is used when an API key is present; otherwise the built-in
+    # deterministic engine answers so every AI feature still works offline.
+    anthropic-api-key: ${ANTHROPIC_API_KEY:}
+    model: ${PAYOPS_AI_MODEL:claude-opus-5-5}
+    max-tokens: 16000
+    timeout: 90s
+  operations:
+    stuck-thresholds:
+      AUTHORIZED: 10m
+      CAPTURED: 10m
+      PROCESSING: 5m
+      RETRY_PENDING: 30m
+    health-window: 15m
+    retention-days: 365
+  reconciliation:
+    # Settlement amount may differ from the ledger by at most this much (same currency) and still match.
+    amount-tolerance: 0.01
+    # Fuzzy match window: a line settled at T matches payments created in [T - window, T].
+    fuzzy-window: P3D
+    # Succeeded payments not seen in any settlement after this long become MISSING_IN_SETTLEMENT.
+    missing-after: P2D
+    # Settlement fee may exceed the expected fee by this much before it is flagged FEE_OVERCHARGE.
+    fee-tolerance: 0.05
+    # A batch with at least this many exceptions emits RECONCILIATION_EXCEPTIONS for notification routing.
+    exception-alert-threshold: 5
+    max-lines-per-file: 200000
+    sweep-interval: PT5M
+  simulator:
     enabled: false
-    provider: openai # openai, claude
-    api-key: ${AI_API_KEY:}
-    model: gpt-4
-    max-tokens: 2000
-    temperature: 0.7
-
-# ============================================
-# PHASE 6: EVENT-DRIVEN & CACHING
-# ============================================
-events:
-  publisher:
-    type: local # local, kafka
-    async: true
-
-cache:
-  provider: local # local (caffeine), redis
-  default-ttl-hours: 1
-
-# Kafka Configuration (Phase 6)
-# Uncomment when Kafka is available
-#spring:
-#  kafka:
-#    bootstrap-servers: localhost:9092
-#    producer:
-#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-#      value-serializer: org.apache.kafka.common.serialization.StringSerializer
-#      acks: all
-#      retries: 3
-#    consumer:
-#      group-id: payops360-consumer-group
-#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-#      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-#      auto-offset-reset: earliest
-
-# Redis Configuration (Phase 6)
-# Uncomment when Redis is available
-#spring:
-#  data:
-#    redis:
-#      host: localhost
-#      port: 6379
-#      password: ${REDIS_PASSWORD:}
-#      timeout: 2000ms
-#      lettuce:
-#        pool:
-#          max-active: 20
-#          max-idle: 10
-#          min-idle: 5
-
+    payments-per-minute: 40
