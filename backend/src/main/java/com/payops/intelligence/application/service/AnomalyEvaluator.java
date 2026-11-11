@@ -1,8 +1,8 @@
 package com.payops.intelligence.application.service;
 
-import com.payops.intelligence.application.port.in.InsightsUseCase.Anomaly;
-import com.payops.intelligence.application.port.out.ProviderSeriesPort.Bucket;
-import com.payops.intelligence.application.port.out.ProviderSeriesPort.ProviderSeries;
+import com.payops.intelligence.application.port.input.InsightsUseCase.Anomaly;
+import com.payops.intelligence.application.port.output.ProviderSeriesPort.Bucket;
+import com.payops.intelligence.application.port.output.ProviderSeriesPort.ProviderSeries;
 import com.payops.intelligence.domain.anomaly.RobustAnomalyDetector;
 import com.payops.intelligence.domain.anomaly.RobustAnomalyDetector.Direction;
 import com.payops.intelligence.domain.anomaly.RobustAnomalyDetector.Finding;

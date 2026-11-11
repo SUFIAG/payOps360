@@ -1,7 +1,7 @@
 package com.payops.intelligence.application.service;
 
-import com.payops.intelligence.application.port.out.AiGovernancePort;
-import com.payops.intelligence.application.port.out.GenerativeAiPort;
+import com.payops.intelligence.application.port.output.AiGovernancePort;
+import com.payops.intelligence.application.port.output.GenerativeAiPort;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

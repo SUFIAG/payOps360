@@ -1,9 +1,9 @@
 package com.payops.bootstrap;
 
 import com.payops.analytics.domain.FxRates;
-import com.payops.identity.application.port.out.OrganizationRepository;
-import com.payops.identity.application.port.out.PasswordHasher;
-import com.payops.identity.application.port.out.UserRepository;
+import com.payops.identity.application.port.output.OrganizationRepository;
+import com.payops.identity.application.port.output.PasswordHasher;
+import com.payops.identity.application.port.output.UserRepository;
 import com.payops.identity.domain.Organization;
 import com.payops.identity.domain.Role;
 import com.payops.identity.domain.User;

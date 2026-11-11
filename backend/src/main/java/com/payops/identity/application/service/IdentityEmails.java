@@ -2,7 +2,7 @@ package com.payops.identity.application.service;
 
 import com.payops.identity.domain.TokenPurpose;
 import com.payops.identity.domain.User;
-import com.payops.notification.application.port.in.EmailSender;
+import com.payops.notification.application.port.input.EmailSender;
 import com.payops.notification.domain.BrandedEmail;
 import com.payops.notification.domain.EmailMessage;
 import lombok.RequiredArgsConstructor;

@@ -1,10 +1,10 @@
 package com.payops.notification.application.service;
 
-import com.payops.notification.application.port.in.EmailDeliveryUseCase;
-import com.payops.notification.application.port.in.EmailSender;
-import com.payops.notification.application.port.in.MailboxQueryUseCase;
-import com.payops.notification.application.port.out.EmailOutboxRepository;
-import com.payops.notification.application.port.out.MailTransport;
+import com.payops.notification.application.port.input.EmailDeliveryUseCase;
+import com.payops.notification.application.port.input.EmailSender;
+import com.payops.notification.application.port.input.MailboxQueryUseCase;
+import com.payops.notification.application.port.output.EmailOutboxRepository;
+import com.payops.notification.application.port.output.MailTransport;
 import com.payops.notification.domain.EmailMessage;
 import com.payops.notification.domain.EmailStatus;
 import com.payops.notification.domain.OutboxEmail;

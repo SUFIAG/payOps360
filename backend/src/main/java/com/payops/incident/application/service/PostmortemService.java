@@ -1,12 +1,12 @@
 package com.payops.incident.application.service;
 
-import com.payops.audit.application.port.in.AuditTrail;
+import com.payops.audit.application.port.input.AuditTrail;
 import com.payops.audit.domain.AuditAction;
 import com.payops.audit.domain.AuditEntry;
 import com.payops.audit.domain.AuditOutcome;
-import com.payops.incident.application.port.in.PostmortemUseCase;
-import com.payops.incident.application.port.out.IncidentRepository;
-import com.payops.incident.application.port.out.PostmortemRepository;
+import com.payops.incident.application.port.input.PostmortemUseCase;
+import com.payops.incident.application.port.output.IncidentRepository;
+import com.payops.incident.application.port.output.PostmortemRepository;
 import com.payops.incident.domain.Incident;
 import com.payops.incident.domain.Postmortem;
 import com.payops.incident.domain.PostmortemDraft;

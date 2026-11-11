@@ -1,17 +1,17 @@
 package com.payops.intelligence.application.service;
 
 import com.payops.analytics.domain.AnalyticsModels;
-import com.payops.incident.application.port.in.IncidentView;
-import com.payops.intelligence.application.port.in.AnomalyScanUseCase;
-import com.payops.intelligence.application.port.in.InsightsUseCase;
-import com.payops.intelligence.application.port.out.AlertingPort;
-import com.payops.intelligence.application.port.out.OperationsDataPort;
-import com.payops.intelligence.application.port.out.ProviderSeriesPort;
+import com.payops.incident.application.port.input.IncidentView;
+import com.payops.intelligence.application.port.input.AnomalyScanUseCase;
+import com.payops.intelligence.application.port.input.InsightsUseCase;
+import com.payops.intelligence.application.port.output.AlertingPort;
+import com.payops.intelligence.application.port.output.OperationsDataPort;
+import com.payops.intelligence.application.port.output.ProviderSeriesPort;
 import com.payops.intelligence.domain.failure.FailureCategory;
 import com.payops.intelligence.domain.failure.FailureKnowledgeBase;
 import com.payops.intelligence.domain.forecast.VolumeForecaster;
 import com.payops.intelligence.domain.routing.RoutingAdvisor;
-import com.payops.provider.application.port.in.ProviderView;
+import com.payops.provider.application.port.input.ProviderView;
 import com.payops.provider.domain.HealthStatus;
 import com.payops.shared.domain.Severity;
 import lombok.RequiredArgsConstructor;

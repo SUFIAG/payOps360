@@ -1,14 +1,14 @@
 package com.payops.intelligence.application.service;
 
 import com.payops.analytics.domain.AnalyticsModels;
-import com.payops.audit.application.port.in.AuditTrail;
+import com.payops.audit.application.port.input.AuditTrail;
 import com.payops.audit.domain.AuditAction;
 import com.payops.audit.domain.AuditEntry;
 import com.payops.audit.domain.AuditOutcome;
-import com.payops.incident.application.port.in.IncidentView;
-import com.payops.intelligence.application.port.in.CopilotUseCase;
-import com.payops.intelligence.application.port.out.GenerativeAiPort;
-import com.payops.intelligence.application.port.out.OperationsDataPort;
+import com.payops.incident.application.port.input.IncidentView;
+import com.payops.intelligence.application.port.input.CopilotUseCase;
+import com.payops.intelligence.application.port.output.GenerativeAiPort;
+import com.payops.intelligence.application.port.output.OperationsDataPort;
 import com.payops.intelligence.domain.failure.FailureKnowledgeBase;
 import com.payops.intelligence.domain.forecast.VolumeForecaster;
 import com.payops.intelligence.domain.routing.RoutingAdvisor;

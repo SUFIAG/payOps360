@@ -1,8 +1,8 @@
 package com.payops.notification.adapter.config;
 
-import com.payops.notification.adapter.out.mail.LoggingMailTransport;
-import com.payops.notification.adapter.out.mail.SmtpMailTransport;
-import com.payops.notification.application.port.out.MailTransport;
+import com.payops.notification.adapter.output.mail.LoggingMailTransport;
+import com.payops.notification.adapter.output.mail.SmtpMailTransport;
+import com.payops.notification.application.port.output.MailTransport;
 import com.payops.notification.application.service.ChannelDeliverySettings;
 import com.payops.notification.application.service.NotificationSettings;
 import org.springframework.beans.factory.annotation.Value;

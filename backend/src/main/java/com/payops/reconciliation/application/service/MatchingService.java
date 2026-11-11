@@ -1,13 +1,13 @@
 package com.payops.reconciliation.application.service;
 
-import com.payops.reconciliation.application.port.in.BatchView;
-import com.payops.reconciliation.application.port.in.ReconciliationProcessingUseCase;
-import com.payops.reconciliation.application.port.out.LedgerPort;
-import com.payops.reconciliation.application.port.out.MatchingQueue;
-import com.payops.reconciliation.application.port.out.ReconciliationRepository;
-import com.payops.reconciliation.application.port.out.ReconciliationRepository.LineRecord;
-import com.payops.reconciliation.application.port.out.ReconciliationRepository.LineUpdate;
-import com.payops.reconciliation.application.port.out.ReconciliationRepository.NewException;
+import com.payops.reconciliation.application.port.input.BatchView;
+import com.payops.reconciliation.application.port.input.ReconciliationProcessingUseCase;
+import com.payops.reconciliation.application.port.output.LedgerPort;
+import com.payops.reconciliation.application.port.output.MatchingQueue;
+import com.payops.reconciliation.application.port.output.ReconciliationRepository;
+import com.payops.reconciliation.application.port.output.ReconciliationRepository.LineRecord;
+import com.payops.reconciliation.application.port.output.ReconciliationRepository.LineUpdate;
+import com.payops.reconciliation.application.port.output.ReconciliationRepository.NewException;
 import com.payops.reconciliation.domain.ExceptionType;
 import com.payops.reconciliation.domain.FeeSchedule;
 import com.payops.reconciliation.domain.MatchMethod;

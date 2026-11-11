@@ -1,7 +1,7 @@
 package com.payops.identity.application.service;
 
-import com.payops.identity.application.port.out.RecoveryCodeRepository;
-import com.payops.identity.application.port.out.TokenService;
+import com.payops.identity.application.port.output.RecoveryCodeRepository;
+import com.payops.identity.application.port.output.TokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

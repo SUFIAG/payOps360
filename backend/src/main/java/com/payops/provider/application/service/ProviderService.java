@@ -1,15 +1,15 @@
 package com.payops.provider.application.service;
 
-import com.payops.audit.application.port.in.AuditTrail;
+import com.payops.audit.application.port.input.AuditTrail;
 import com.payops.audit.domain.AuditAction;
 import com.payops.audit.domain.AuditEntry;
 import com.payops.audit.domain.AuditOutcome;
-import com.payops.provider.application.port.in.ProviderCatalogUseCase;
-import com.payops.provider.application.port.in.ProviderHealthUseCase;
-import com.payops.provider.application.port.in.ProviderView;
-import com.payops.provider.application.port.out.HealthSnapshotRepository;
-import com.payops.provider.application.port.out.ProviderRepository;
-import com.payops.provider.application.port.out.TrafficStatisticsPort;
+import com.payops.provider.application.port.input.ProviderCatalogUseCase;
+import com.payops.provider.application.port.input.ProviderHealthUseCase;
+import com.payops.provider.application.port.input.ProviderView;
+import com.payops.provider.application.port.output.HealthSnapshotRepository;
+import com.payops.provider.application.port.output.ProviderRepository;
+import com.payops.provider.application.port.output.TrafficStatisticsPort;
 import com.payops.provider.domain.HealthSnapshot;
 import com.payops.provider.domain.HealthStatus;
 import com.payops.provider.domain.Provider;

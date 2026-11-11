@@ -1,17 +1,17 @@
 package com.payops.payment.application.service;
 
-import com.payops.audit.application.port.in.AuditTrail;
+import com.payops.audit.application.port.input.AuditTrail;
 import com.payops.audit.domain.AuditAction;
 import com.payops.audit.domain.AuditEntry;
 import com.payops.audit.domain.AuditOutcome;
-import com.payops.payment.application.port.in.PaymentCommandUseCase;
-import com.payops.payment.application.port.in.PaymentQueryUseCase;
-import com.payops.payment.application.port.in.PaymentView;
-import com.payops.payment.application.port.in.StuckPaymentDetectionUseCase;
-import com.payops.payment.application.port.out.PaymentRepository;
-import com.payops.payment.application.port.out.PaymentSignalPort;
-import com.payops.payment.application.port.out.ProviderDirectory;
-import com.payops.payment.application.port.out.RiskScoringPort;
+import com.payops.payment.application.port.input.PaymentCommandUseCase;
+import com.payops.payment.application.port.input.PaymentQueryUseCase;
+import com.payops.payment.application.port.input.PaymentView;
+import com.payops.payment.application.port.input.StuckPaymentDetectionUseCase;
+import com.payops.payment.application.port.output.PaymentRepository;
+import com.payops.payment.application.port.output.PaymentSignalPort;
+import com.payops.payment.application.port.output.ProviderDirectory;
+import com.payops.payment.application.port.output.RiskScoringPort;
 import com.payops.payment.domain.Money;
 import com.payops.payment.domain.Payment;
 import com.payops.payment.domain.PaymentSearchCriteria;

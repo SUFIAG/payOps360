@@ -1,7 +1,7 @@
 package com.payops.analytics.application.service;
 
-import com.payops.analytics.application.port.in.AnalyticsUseCase;
-import com.payops.analytics.application.port.out.AnalyticsQueryPort;
+import com.payops.analytics.application.port.input.AnalyticsUseCase;
+import com.payops.analytics.application.port.output.AnalyticsQueryPort;
 import com.payops.analytics.domain.AnalyticsModels.Breakdown;
 import com.payops.analytics.domain.AnalyticsModels.Corridor;
 import com.payops.analytics.domain.AnalyticsModels.Kpi;

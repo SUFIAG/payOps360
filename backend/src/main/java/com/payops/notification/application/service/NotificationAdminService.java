@@ -1,12 +1,12 @@
 package com.payops.notification.application.service;
 
-import com.payops.audit.application.port.in.AuditTrail;
+import com.payops.audit.application.port.input.AuditTrail;
 import com.payops.audit.domain.AuditAction;
 import com.payops.audit.domain.AuditEntry;
 import com.payops.audit.domain.AuditOutcome;
-import com.payops.notification.application.port.in.NotificationAdminUseCase;
-import com.payops.notification.application.port.out.NotificationConfigRepository;
-import com.payops.notification.application.port.out.NotificationDeliveryRepository;
+import com.payops.notification.application.port.input.NotificationAdminUseCase;
+import com.payops.notification.application.port.output.NotificationConfigRepository;
+import com.payops.notification.application.port.output.NotificationDeliveryRepository;
 import com.payops.notification.domain.ChannelTarget;
 import com.payops.notification.domain.ChannelType;
 import com.payops.notification.domain.EscalationPolicy;

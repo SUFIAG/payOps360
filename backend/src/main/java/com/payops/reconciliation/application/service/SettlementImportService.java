@@ -1,16 +1,16 @@
 package com.payops.reconciliation.application.service;
 
-import com.payops.audit.application.port.in.AuditTrail;
+import com.payops.audit.application.port.input.AuditTrail;
 import com.payops.audit.domain.AuditAction;
 import com.payops.audit.domain.AuditEntry;
 import com.payops.audit.domain.AuditOutcome;
 import com.payops.payment.domain.PaymentMethod;
-import com.payops.reconciliation.application.port.in.BatchView;
-import com.payops.reconciliation.application.port.in.FeeScheduleUseCase;
-import com.payops.reconciliation.application.port.in.SettlementImportUseCase;
-import com.payops.reconciliation.application.port.out.LedgerPort;
-import com.payops.reconciliation.application.port.out.MatchingQueue;
-import com.payops.reconciliation.application.port.out.ReconciliationRepository;
+import com.payops.reconciliation.application.port.input.BatchView;
+import com.payops.reconciliation.application.port.input.FeeScheduleUseCase;
+import com.payops.reconciliation.application.port.input.SettlementImportUseCase;
+import com.payops.reconciliation.application.port.output.LedgerPort;
+import com.payops.reconciliation.application.port.output.MatchingQueue;
+import com.payops.reconciliation.application.port.output.ReconciliationRepository;
 import com.payops.reconciliation.domain.FeeSchedule;
 import com.payops.reconciliation.domain.MappingProfile;
 import com.payops.reconciliation.domain.SettlementLineType;

@@ -1,10 +1,10 @@
 package com.payops.reconciliation.application.service;
 
-import com.payops.reconciliation.application.port.in.BatchView;
-import com.payops.reconciliation.application.port.in.ExceptionView;
-import com.payops.reconciliation.application.port.in.ReconciliationQueryUseCase;
-import com.payops.reconciliation.application.port.out.LedgerPort;
-import com.payops.reconciliation.application.port.out.ReconciliationRepository;
+import com.payops.reconciliation.application.port.input.BatchView;
+import com.payops.reconciliation.application.port.input.ExceptionView;
+import com.payops.reconciliation.application.port.input.ReconciliationQueryUseCase;
+import com.payops.reconciliation.application.port.output.LedgerPort;
+import com.payops.reconciliation.application.port.output.ReconciliationRepository;
 import com.payops.shared.domain.NotFoundException;
 import com.payops.shared.domain.PageQuery;
 import com.payops.shared.domain.PageResult;

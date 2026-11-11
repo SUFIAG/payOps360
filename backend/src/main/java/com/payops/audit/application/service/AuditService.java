@@ -1,8 +1,8 @@
 package com.payops.audit.application.service;
 
-import com.payops.audit.application.port.in.AuditQueryUseCase;
-import com.payops.audit.application.port.in.AuditTrail;
-import com.payops.audit.application.port.out.AuditRepository;
+import com.payops.audit.application.port.input.AuditQueryUseCase;
+import com.payops.audit.application.port.input.AuditTrail;
+import com.payops.audit.application.port.output.AuditRepository;
 import com.payops.audit.domain.AuditEntry;
 import com.payops.audit.domain.StoredAuditEntry;
 import com.payops.shared.domain.PageQuery;

@@ -1,6 +1,6 @@
 package com.payops.identity.application.service;
 
-import com.payops.identity.application.port.out.ActionTokenRepository;
+import com.payops.identity.application.port.output.ActionTokenRepository;
 import com.payops.identity.domain.ActionToken;
 import com.payops.identity.domain.InvalidTokenException;
 import com.payops.identity.domain.TokenPurpose;

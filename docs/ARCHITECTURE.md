@@ -17,12 +17,12 @@ Each business module follows **ports and adapters**:
 com.payops.<module>
 ├── domain/                 pure Java: aggregates, value objects, domain services (no Spring/JPA/Jackson)
 ├── application/
-│   ├── port/in/            use-case interfaces + view models (driving ports)
-│   ├── port/out/           repository / gateway interfaces (driven ports)
+│   ├── port/input/         use-case interfaces + view models (driving ports)
+│   ├── port/output/        repository / gateway interfaces (driven ports)
 │   └── service/            use-case implementations (transactions, orchestration)
 └── adapter/
-    ├── in/web | scheduler  REST controllers, scheduled jobs (driving adapters)
-    └── out/persistence|... JPA/JDBC, Claude, cross-module bridges (driven adapters)
+    ├── input/web|scheduler REST controllers, scheduled jobs (driving adapters)
+    └── output/persistence  JPA/JDBC, Claude, cross-module bridges (driven adapters)
 ```
 
 | Module | Responsibility |

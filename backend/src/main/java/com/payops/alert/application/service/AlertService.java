@@ -1,15 +1,15 @@
 package com.payops.alert.application.service;
 
-import com.payops.alert.application.port.in.AlertCommandUseCase;
-import com.payops.alert.application.port.in.AlertQueryUseCase;
-import com.payops.alert.application.port.in.AlertView;
-import com.payops.alert.application.port.in.RaiseAlertUseCase;
-import com.payops.alert.application.port.out.AlertContextPort;
-import com.payops.alert.application.port.out.AlertRepository;
+import com.payops.alert.application.port.input.AlertCommandUseCase;
+import com.payops.alert.application.port.input.AlertQueryUseCase;
+import com.payops.alert.application.port.input.AlertView;
+import com.payops.alert.application.port.input.RaiseAlertUseCase;
+import com.payops.alert.application.port.output.AlertContextPort;
+import com.payops.alert.application.port.output.AlertRepository;
 import com.payops.alert.domain.Alert;
 import com.payops.alert.domain.AlertStatus;
 import com.payops.alert.domain.AlertType;
-import com.payops.audit.application.port.in.AuditTrail;
+import com.payops.audit.application.port.input.AuditTrail;
 import com.payops.audit.domain.AuditAction;
 import com.payops.audit.domain.AuditEntry;
 import com.payops.audit.domain.AuditOutcome;

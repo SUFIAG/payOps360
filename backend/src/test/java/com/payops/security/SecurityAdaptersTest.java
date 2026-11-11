@@ -5,7 +5,7 @@ import com.payops.audit.domain.AuditEntry;
 import com.payops.audit.domain.AuditOutcome;
 import com.payops.audit.domain.StoredAuditEntry;
 import com.payops.identity.adapter.config.SecurityProperties;
-import com.payops.identity.adapter.out.security.JwtTokenService;
+import com.payops.identity.adapter.output.security.JwtTokenService;
 import com.payops.identity.domain.Role;
 import com.payops.identity.domain.User;
 import com.payops.identity.domain.UserStatus;

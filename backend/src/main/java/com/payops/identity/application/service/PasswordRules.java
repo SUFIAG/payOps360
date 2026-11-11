@@ -1,7 +1,7 @@
 package com.payops.identity.application.service;
 
-import com.payops.identity.application.port.out.PasswordHasher;
-import com.payops.identity.application.port.out.PasswordHistoryRepository;
+import com.payops.identity.application.port.output.PasswordHasher;
+import com.payops.identity.application.port.output.PasswordHistoryRepository;
 import com.payops.identity.domain.User;
 import com.payops.identity.domain.WeakPasswordException;
 import lombok.RequiredArgsConstructor;

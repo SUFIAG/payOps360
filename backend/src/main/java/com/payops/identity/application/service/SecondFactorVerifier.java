@@ -1,6 +1,6 @@
 package com.payops.identity.application.service;
 
-import com.payops.identity.application.port.out.SecretCipher;
+import com.payops.identity.application.port.output.SecretCipher;
 import com.payops.identity.domain.Totp;
 import com.payops.identity.domain.User;
 import lombok.RequiredArgsConstructor;

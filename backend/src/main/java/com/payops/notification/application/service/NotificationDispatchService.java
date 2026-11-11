@@ -1,10 +1,10 @@
 package com.payops.notification.application.service;
 
-import com.payops.notification.application.port.in.EmailSender;
-import com.payops.notification.application.port.in.NotificationDispatchUseCase;
-import com.payops.notification.application.port.out.ChannelTransport;
-import com.payops.notification.application.port.out.NotificationConfigRepository;
-import com.payops.notification.application.port.out.NotificationDeliveryRepository;
+import com.payops.notification.application.port.input.EmailSender;
+import com.payops.notification.application.port.input.NotificationDispatchUseCase;
+import com.payops.notification.application.port.output.ChannelTransport;
+import com.payops.notification.application.port.output.NotificationConfigRepository;
+import com.payops.notification.application.port.output.NotificationDeliveryRepository;
 import com.payops.notification.domain.BrandedEmail;
 import com.payops.notification.domain.ChannelTarget;
 import com.payops.notification.domain.ChannelType;

@@ -1,9 +1,9 @@
 package com.payops.notification.application.service;
 
-import com.payops.notification.application.port.in.EscalationUseCase;
-import com.payops.notification.application.port.out.EscalationProgressRepository;
-import com.payops.notification.application.port.out.EscalationSubjectsPort;
-import com.payops.notification.application.port.out.NotificationConfigRepository;
+import com.payops.notification.application.port.input.EscalationUseCase;
+import com.payops.notification.application.port.output.EscalationProgressRepository;
+import com.payops.notification.application.port.output.EscalationSubjectsPort;
+import com.payops.notification.application.port.output.NotificationConfigRepository;
 import com.payops.notification.domain.EscalationPolicy;
 import com.payops.notification.domain.NotificationChannel;
 import com.payops.notification.domain.NotificationDelivery;

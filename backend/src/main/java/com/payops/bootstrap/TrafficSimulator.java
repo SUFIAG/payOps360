@@ -1,10 +1,10 @@
 package com.payops.bootstrap;
 
-import com.payops.identity.application.port.out.OrganizationRepository;
+import com.payops.identity.application.port.output.OrganizationRepository;
 import com.payops.identity.domain.Organization;
-import com.payops.payment.application.port.in.PaymentCommandUseCase;
-import com.payops.payment.application.port.in.PaymentQueryUseCase;
-import com.payops.payment.application.port.in.PaymentView;
+import com.payops.payment.application.port.input.PaymentCommandUseCase;
+import com.payops.payment.application.port.input.PaymentQueryUseCase;
+import com.payops.payment.application.port.input.PaymentView;
 import com.payops.payment.domain.PaymentSearchCriteria;
 import com.payops.payment.domain.PaymentStatus;
 import com.payops.shared.application.Actor;

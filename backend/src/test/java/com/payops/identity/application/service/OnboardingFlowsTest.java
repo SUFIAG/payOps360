@@ -2,8 +2,8 @@ package com.payops.identity.application.service;
 
 import com.payops.audit.domain.AuditAction;
 import com.payops.audit.domain.AuditOutcome;
-import com.payops.identity.application.port.in.InvitationUseCase;
-import com.payops.identity.application.port.in.SignupUseCase;
+import com.payops.identity.application.port.input.InvitationUseCase;
+import com.payops.identity.application.port.input.SignupUseCase;
 import com.payops.identity.domain.InvalidTokenException;
 import com.payops.identity.domain.LockoutPolicy;
 import com.payops.identity.domain.Organization;

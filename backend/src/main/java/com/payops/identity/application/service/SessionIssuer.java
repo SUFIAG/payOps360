@@ -1,16 +1,16 @@
 package com.payops.identity.application.service;
 
-import com.payops.audit.application.port.in.AuditTrail;
+import com.payops.audit.application.port.input.AuditTrail;
 import com.payops.audit.domain.AuditAction;
 import com.payops.audit.domain.AuditEntry;
 import com.payops.audit.domain.AuditOutcome;
-import com.payops.identity.application.port.in.AuthOutcome;
-import com.payops.identity.application.port.in.UserView;
-import com.payops.identity.application.port.out.LoginAttemptRepository;
-import com.payops.identity.application.port.out.OrganizationRepository;
-import com.payops.identity.application.port.out.SessionRepository;
-import com.payops.identity.application.port.out.TokenService;
-import com.payops.identity.application.port.out.UserRepository;
+import com.payops.identity.application.port.input.AuthOutcome;
+import com.payops.identity.application.port.input.UserView;
+import com.payops.identity.application.port.output.LoginAttemptRepository;
+import com.payops.identity.application.port.output.OrganizationRepository;
+import com.payops.identity.application.port.output.SessionRepository;
+import com.payops.identity.application.port.output.TokenService;
+import com.payops.identity.application.port.output.UserRepository;
 import com.payops.identity.domain.Organization;
 import com.payops.identity.domain.User;
 import com.payops.identity.domain.UserSession;

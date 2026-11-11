@@ -1,14 +1,14 @@
 package com.payops.reconciliation.application.service;
 
-import com.payops.audit.application.port.in.AuditTrail;
+import com.payops.audit.application.port.input.AuditTrail;
 import com.payops.audit.domain.AuditAction;
 import com.payops.audit.domain.AuditEntry;
 import com.payops.audit.domain.AuditOutcome;
-import com.payops.reconciliation.application.port.in.ExceptionCommandUseCase;
-import com.payops.reconciliation.application.port.in.ExceptionView;
-import com.payops.reconciliation.application.port.out.LedgerPort;
-import com.payops.reconciliation.application.port.out.ReconciliationRepository;
-import com.payops.reconciliation.application.port.out.ReconciliationRepository.ExceptionState;
+import com.payops.reconciliation.application.port.input.ExceptionCommandUseCase;
+import com.payops.reconciliation.application.port.input.ExceptionView;
+import com.payops.reconciliation.application.port.output.LedgerPort;
+import com.payops.reconciliation.application.port.output.ReconciliationRepository;
+import com.payops.reconciliation.application.port.output.ReconciliationRepository.ExceptionState;
 import com.payops.reconciliation.domain.ExceptionStatus;
 import com.payops.reconciliation.domain.MatchMethod;
 import com.payops.reconciliation.domain.MatchStatus;
